@@ -1,12 +1,19 @@
 const fs = require('fs')
+const path = require('path')
 const source_directory = process.argv[2]
 const target_directory = process.argv[3]
-const NOT_WANTED = ['node_modules','.tmp', '.DS_Store']
 
 if (source_directory && target_directory) start()
 
+const NOT_WANTED = [
+  'node_modules',
+  '.tmp',
+  '.DS_Store',
+  path.basename(source_directory)
+]
+
 function start() {
-  console.log('runing...')
+  console.log('start...')
   fs.readdir(source_directory, function (err, files) {
     if (err) return console.error(err);
 
@@ -14,7 +21,7 @@ function start() {
       if (err) return console.error(err)
 
       filesStat(source_directory, target_directory, files)
-      console.log('done.');
+      console.log('runing...');
     })
   })
 }
